@@ -92,6 +92,56 @@ void deleteNode(Node* head, int location)
     }
 
 }
+//search location of node on basis of data
+int searchNode(Node* head, int data)
+{
+    int counter = 1;
+    while(head)
+    {
+        if(head->data == data)
+        {
+            return counter;
+        }
+        head = head->next;
+        counter++;
+    }
+    cout << endl << "Data not present in linkedList. "<<endl;
+    return 0;
+}
+
+//reverse the linkedList and return the new head, that would be the last node
+Node* reverse(Node* head)
+{
+    Node* prev = NULL;
+    Node* curr = head;
+    Node* Next = head;
+
+    while(curr)
+    {
+        Next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = Next;
+    }
+    head = prev;
+    return head;
+}
+
+//reverse linkedlist using recurrsion
+Node* storeHead;
+void reverseRecurrse(Node* p)
+{
+    if (p->next == NULL) 
+        {
+            storeHead = p;
+            return ;
+        }
+    
+    reverseRecurrse(p->next);
+    Node* q = p->next;
+    q->next = p;
+    p->next = NULL;
+}
 
 //used to print the entire linkedList
 //head is local variable to this function, it won't change the head in main function
@@ -119,6 +169,10 @@ int main()
 
     deleteNode(head, 4);
     deleteNode(head, 6);
+    //cout<<searchNode(head, 5)<<endl;
     
     displayList(head); 
+    cout << endl;
+    reverseRecurrse(head);
+    displayList(storeHead);
 }
